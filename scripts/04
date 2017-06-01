@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo '\
+last_mod=`ls -l /etc/crontab | grep`
+
+if [ -f /var/log/cronmd5.log ]; then
+	oldmd5=`cat /var/log/cronmd5.log`
+	md5=`md5sum /etc/crontab | grep -d " " -f1`
+	
+	if [ "$oldmd5" != "$md5" ]; then
+		echo "attention modification du fichier crontab"
+	fi
+fi
+
+echo $md5 > /var/log/cronmd5.log
+' > /root/check_cron.sh && chmod +x /root/check_cron.sh
+
+echo '\
+	MAILTO="root@root.com"
+	
+	0 0 * * * /root/check_cron.sh
+	' >> /etc/crontab
