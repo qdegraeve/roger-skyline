@@ -1,0 +1,1 @@
+Lorsque l'on execute la commande nslookup 42.fr, on obtient les IP publiques et locales des serveurs utilises alors que lors de la commande nslookup 42.fr 8.8.8.8 renvoi uniquement l'adresse des serveurs publiques.
